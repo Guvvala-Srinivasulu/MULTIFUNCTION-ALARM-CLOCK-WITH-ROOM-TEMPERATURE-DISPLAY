@@ -61,8 +61,8 @@ The system supports **interrupt-based editing for all time and alarm parameters*
 | Signal | Pin | Description |
 |------|------|------------|
 | LCD Data | P0.8 – P0.15| 8-bit LCD data bus |
-| LCD RS | P0.9 | Register select |
-| LCD EN | P0.8 | Enable signal |
+| LCD RS | P0.16 | Register select |
+| LCD EN | P0.18 | Enable signal |
 | Keypad Rows | P1.16 – P1.19 | Row scanning |
 | Keypad Columns | P1.20 – P1.23 | Column scanning |
 | Buzzer | P0.6 | Alarm output |
