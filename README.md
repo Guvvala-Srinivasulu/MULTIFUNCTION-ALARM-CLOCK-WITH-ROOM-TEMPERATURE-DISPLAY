@@ -120,8 +120,8 @@ The system supports **interrupt-based editing for all time and alarm parameters*
 ## 📸 Project Images / Screenshots
 
 ### Proteus Simulation Overview
-![Proteus Overview](images/proteus_alarmclock_overview.png)  
-*Figure 2: Complete system simulation in Proteus using LPC2148 on-chip RTC.*
+![Proteus Overview]([images/proteus_alarmclock_overview.png](https://github.com/Guvvala-Srinivasulu/MULTIFUNCTION-ALARM-CLOCK-WITH-ROOM-TEMPERATURE-DISPLAY/blob/5196f0e5b2af015322def293c3791f280f26cc89/Screenshot%202025-12-16%20162556.png))  
+
 
 ### Interrupt-Based Editing Mode
 ![Edit Mode](images/proteus_alarmclock_editmode.png)  
