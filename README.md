@@ -123,12 +123,12 @@ The system supports **interrupt-based editing for all time and alarm parameters*
 ![image alt](https://github.com/Guvvala-Srinivasulu/MULTIFUNCTION-ALARM-CLOCK-WITH-ROOM-TEMPERATURE-DISPLAY/blob/5196f0e5b2af015322def293c3791f280f26cc89/Screenshot%202025-12-16%20162556.png)
 
 
-### Interrupt-Based Editing Mode
-![Edit Mode](images/proteus_alarmclock_editmode.png)  
+### Interrupt-Based Editing Mode Options
+![image alt](https://github.com/Guvvala-Srinivasulu/MULTIFUNCTION-ALARM-CLOCK-WITH-ROOM-TEMPERATURE-DISPLAY/blob/519de7ee4f5224af216579c04d8d941ea0e4b1ba/Screenshot%202025-12-16%20162632.png)
 *Figure 3: External interrupt used to enter configuration mode.*
 
-### Time, Day & Date Display
-![LCD Output](images/proteus_alarmclock_lcd.png)  
+### Time, Day & Date Display Editing Mode Options
+![image alt]()  
 *Figure 4: LCD displaying time, day, date, and room temperature.*
 
 ---
