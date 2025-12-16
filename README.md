@@ -131,7 +131,7 @@ The system supports **interrupt-based editing for all time and alarm parameters*
 ![image alt](https://github.com/Guvvala-Srinivasulu/MULTIFUNCTION-ALARM-CLOCK-WITH-ROOM-TEMPERATURE-DISPLAY/blob/a83ad6947d661387bf32d9bccf98ec88332b5c3e/Screenshot%202025-12-16%20162657.png)  
 
 ### Time, Day & Date Display Editing Mode Options
-![image alt]()  
+![image alt](https://github.com/Guvvala-Srinivasulu/MULTIFUNCTION-ALARM-CLOCK-WITH-ROOM-TEMPERATURE-DISPLAY/blob/3f034124581c3c24957317bbc6fae22371d6bd96/Screenshot%202025-12-16%20162727.png)  
 
 
 ---
