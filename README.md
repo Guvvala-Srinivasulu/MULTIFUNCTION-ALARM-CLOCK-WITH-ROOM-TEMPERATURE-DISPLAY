@@ -1,50 +1,56 @@
-# MULTIFUNCTION-ALARM-CLOCK-WITH-ROOM-TEMPERATURE-DISPLAY
 # ⏰ MULTIFUNCTION ALARM CLOCK  
 ## *with Room Temperature, Day & Date Display*
 
-A compact **embedded real-time clock system** that displays the **current time, day, date, and room temperature**, while providing a **programmable alarm feature** with intuitive keypad interaction.
+A compact **embedded real-time clock system** based on the **on-chip RTC of LPC2148**, capable of displaying the **current time, day, date, and room temperature**, along with a **programmable alarm feature**.
 
-This project integrates **timekeeping, calendar tracking, environmental sensing, and alert mechanisms** into a single multifunction embedded solution suitable for home, office, and academic applications.
+The system supports **interrupt-based editing for all time and alarm parameters**, while keeping **temperature sensing read-only** for accuracy and reliability.
 
 ---
 
 ## ✨ Features
 
-- ⏱ **Real-Time Clock (RTC) Display**  
-  Displays accurate **current time (HH:MM:SS)** using an RTC module.
+- ⏱ **On-Chip Real-Time Clock (RTC)**  
+  Uses the **internal RTC of LPC2148** to display accurate time (HH:MM:SS).
 
 - 📅 **Day & Date Display**  
-  Shows the **current day (MON–SUN)** and **date (DD/MM/YYYY)** on the LCD.
+  Displays **current day (MON–SUN)** and **date (DD/MM/YYYY)**.
 
-- 🌡 **Room Temperature Monitoring**  
-  Continuously measures and displays ambient room temperature.
+- 🌡 **Room Temperature Monitoring (Read-Only)**  
+  Continuously senses and displays ambient room temperature.
 
 - ⏰ **Programmable Alarm Function**  
-  User-configurable alarm time with buzzer alert.
+  Alarm time configurable using interrupt-driven editing.
+
+- ⚡ **Interrupt-Based Parameter Editing**  
+  External interrupt enables editing of:
+  - Time  
+  - Day  
+  - Date  
+  - Alarm Time  
+  *(Temperature excluded)*
 
 - 🖥 **16×2 LCD User Interface**  
-  Displays **time, day, date, temperature, and alarm status**.
+  Displays time, day, date, temperature, and alarm status.
 
-- 🎛 **Keypad-Based Configuration**  
-  Easy keypad-based setting of time, day, date, and alarm.
+- 🎛 **Keypad-Based Navigation**  
+  Used for increment/decrement and cursor movement.
 
 - ⚠ **Audio Alert Indication**  
-  Buzzer activates automatically when alarm time is reached.
+  Buzzer activates automatically when alarm time matches RTC.
 
 - 🔁 **Continuous Real-Time Operation**  
-  Updates time, date, day, and temperature continuously.
+  RTC and temperature values update continuously.
 
 ---
 
 ## 🛠 Hardware Components
 
 - **LPC2148 (ARM7) Microcontroller**  
-- **RTC Module (DS1307 / On-Chip RTC)**  
 - **Temperature Sensor (LM35 / DHT11)**  
 - **16×2 HD44780-Compatible LCD**  
 - **Matrix Keypad**  
+- **External Interrupt Switch (EDIT MODE)**  
 - **Buzzer (Alarm Output)**  
-- **Push Buttons (Mode / Stop Alarm)**  
 - **Regulated Power Supply (5V / 3.3V)**  
 - **USB-UART Converter (Programming & Debugging)**  
 
@@ -54,14 +60,13 @@ This project integrates **timekeeping, calendar tracking, environmental sensing,
 
 | Signal | Pin | Description |
 |------|------|------------|
-| LCD Data | P0.0 – P0.7 | 8-bit LCD data bus |
+| LCD Data | P0.8 – P0.15| 8-bit LCD data bus |
 | LCD RS | P0.9 | Register select |
 | LCD EN | P0.8 | Enable signal |
-| Keypad Rows | P1.20 – P1.23 | Row scanning lines |
-| Keypad Columns | P1.24 – P1.27 | Column scanning lines |
+| Keypad Rows | P1.16 – P1.19 | Row scanning |
+| Keypad Columns | P1.20 – P1.23 | Column scanning |
 | Buzzer | P0.6 | Alarm output |
-| RTC SDA | P0.27 | I2C data line |
-| RTC SCL | P0.28 | I2C clock line |
+| EDIT Interrupt | P0.1 | External Interrupt (EINT0) |
 
 ---
 
@@ -71,19 +76,13 @@ This project integrates **timekeeping, calendar tracking, environmental sensing,
 - Developed using **Keil µVision IDE**
 - Programmed using **Flash Magic**
 - Implements:
-  - RTC time, day & date read/write routines  
+  - On-chip RTC configuration and reading  
+  - External interrupt handling  
   - Keypad scanning logic  
-  - LCD command & data handling  
-  - Temperature sensor interface  
-  - Alarm comparison logic  
+  - LCD command & data routines  
+  - Temperature sensor interfacing (read-only)  
+  - Alarm time comparison logic  
   - Buzzer control  
-
----
-
-## 🧭 System Architecture
-
-![System Architecture](images/alarmclock_architecture.png)  
-*Figure 1: System architecture showing RTC, temperature sensor, LCD, keypad, and buzzer.*
 
 ---
 
@@ -94,21 +93,18 @@ This project integrates **timekeeping, calendar tracking, environmental sensing,
    - Current Day  
    - Current Date  
    - Room Temperature  
-2. Press the **mode key** to enter configuration mode.
-3. Configure:
+2. Press the **EDIT MODE switch (External Interrupt)**.
+3. System enters **editing mode**.
+4. Editable parameters:
    - Time (HH:MM:SS)
    - Day (MON–SUN)
    - Date (DD/MM/YYYY)
    - Alarm Time (HH:MM)
-4. Keypad controls:
-   - `→` Move to next field  
-   - `←` Move to previous field  
-   - `↑` Increment value  
-   - `↓` Decrement value  
-5. Save the settings and exit.
-6. System returns to normal display mode.
-7. When RTC time matches alarm time, **buzzer is activated**.
-8. Press any key to stop the alarm.
+5. **Temperature is read-only and cannot be edited**.  
+6. Press the interrupt switch again to **save and exit**.
+7. System returns to normal run mode.
+8. When alarm time matches RTC time, **buzzer activates**.
+9. Press any key to stop the alarm.
 
 ---
 
@@ -116,8 +112,8 @@ This project integrates **timekeeping, calendar tracking, environmental sensing,
 
 - Alarm triggers once per day unless reset.
 - Minor temperature variation due to sensor tolerance.
-- LCD flicker may occur during rapid updates.
-- Incorrect day/date entry may cause mismatch unless RTC is properly set.
+- Incorrect manual day/date entry may cause mismatch.
+- LCD flicker may occur during rapid interrupt transitions.
 
 ---
 
@@ -125,34 +121,34 @@ This project integrates **timekeeping, calendar tracking, environmental sensing,
 
 ### Proteus Simulation Overview
 ![Proteus Overview](images/proteus_alarmclock_overview.png)  
-*Figure 2: Complete alarm clock system simulated in Proteus.*
+*Figure 2: Complete system simulation in Proteus using LPC2148 on-chip RTC.*
+
+### Interrupt-Based Editing Mode
+![Edit Mode](images/proteus_alarmclock_editmode.png)  
+*Figure 3: External interrupt used to enter configuration mode.*
 
 ### Time, Day & Date Display
 ![LCD Output](images/proteus_alarmclock_lcd.png)  
-*Figure 3: LCD displaying time, day, date, and room temperature.*
-
-### Alarm Trigger Condition
-![Alarm Trigger](images/proteus_alarmclock_alarm.png)  
-*Figure 4: Buzzer activation when alarm time is reached.*
+*Figure 4: LCD displaying time, day, date, and room temperature.*
 
 ---
 
 ## 💡 Future Enhancements
 
-- Multiple alarms (daily, weekly scheduling)
-- Snooze functionality
+- Multiple alarm scheduling
+- Snooze functionality using interrupt
 - Battery backup for RTC
-- Automatic day/date correction
+- Automatic leap-year handling
 - OLED / TFT graphical display
-- Wireless time synchronization (NTP)
-- Mobile app integration for alarm control
+- Voice or mobile-based alarm control
+- Low-power sleep modes
 
 ---
 
 ## 📌 Conclusion
 
-The **Multifunction Alarm Clock with Room Temperature, Day & Date Display** successfully combines **real-time clock functionality, calendar tracking, temperature monitoring, and alarm automation** in a single embedded system.  
-Its reliability and extensibility make it ideal for both practical use and academic projects.
+The **Multifunction Alarm Clock with Room Temperature, Day & Date Display** efficiently utilizes the **LPC2148 on-chip RTC**, eliminating the need for external RTC or I2C communication.  
+Interrupt-driven editing enhances usability while maintaining system accuracy and simplicity.
 
 ---
 
@@ -161,9 +157,3 @@ Its reliability and extensibility make it ideal for both practical use and acade
 - Keil µVision IDE  
 - ARM7 LPC2148  
 - Embedded C  
-- RTC & Temperature Sensors  
-
----
-
-> ⚠️ Note  
-> Add real Proteus screenshots inside the `images/` folder before uploading to GitHub.
